@@ -112,7 +112,7 @@ def overlay_heatmap(image, saliency, alpha=0.5):
 # ===============================
 # UI
 # ===============================
-st.title("🔥 Saliency Map Interactive Simulator")
+st.title("Saliency Map Interactive Simulator")
 
 uploaded_file = st.file_uploader("Upload an image")
 
