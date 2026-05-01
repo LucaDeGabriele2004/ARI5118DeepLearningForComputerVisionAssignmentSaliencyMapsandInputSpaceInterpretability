@@ -9,8 +9,13 @@ from PIL import Image
 # ===============================
 # MODEL
 # ===============================
-model = resnet18(weights=ResNet18_Weights.DEFAULT)
-model.eval()
+@st.cache_resource
+def load_model():
+    model = resnet18(weights=ResNet18_Weights.DEFAULT)
+    model.eval()
+    return model
+
+model = load_model()
 
 # ===============================
 # PREPROCESSING
@@ -92,9 +97,7 @@ def smoothgrad(input_tensor, n_samples=20, noise_level=0.1):
 # NORMALIZATION
 # ===============================
 def normalize_map(saliency):
-    saliency -= saliency.min()
-    saliency /= (saliency.max() + 1e-8)
-    return saliency
+    return (saliency - saliency.min()) / (saliency.max() - saliency.min() + 1e-8)
 
 # ===============================
 # HEATMAP OVERLAY
@@ -116,16 +119,29 @@ st.title("Saliency Map Interactive Simulator")
 
 uploaded_file = st.file_uploader("Upload an image")
 
-method = st.selectbox(
-    "Select Method",
-    ["Vanilla", "Guided Backprop", "SmoothGrad"]
-)
-
 alpha = st.slider("Overlay Transparency", 0.0, 1.0, 0.5)
+failure_mode = st.checkbox("Enable Failure Mode (Random Noise Input)")
 
-if method == "SmoothGrad":
-    noise = st.slider("Noise Level (σ)", 0.0, 0.5, 0.1)
-    samples = st.slider("Number of Samples", 5, 50, 20)
+colA, colB = st.columns(2)
+
+with colA:
+    methodA = st.selectbox("Method A", ["Vanilla", "Guided Backprop", "SmoothGrad"])
+
+with colB:
+    methodB = st.selectbox("Method B", ["Vanilla", "Guided Backprop", "SmoothGrad"])
+
+paramsA = {}
+paramsB = {}
+
+with colA:
+    if methodA == "SmoothGrad":
+        paramsA["noise"] = st.slider("Noise A (σ)", 0.0, 0.5, 0.1)
+        paramsA["samples"] = st.slider("Samples A", 5, 50, 20)
+
+with colB:
+    if methodB == "SmoothGrad":
+        paramsB["noise"] = st.slider("Noise B (σ)", 0.0, 0.5, 0.1)
+        paramsB["samples"] = st.slider("Samples B", 5, 50, 20)
 
 # ===============================
 # MAIN DISPLAY
@@ -133,6 +149,9 @@ if method == "SmoothGrad":
 if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     input_tensor = preprocess(image)
+
+    if failure_mode:
+        input_tensor = torch.randn_like(input_tensor)
 
     st.image(image, caption="Original Image", use_column_width=True)
 
@@ -142,22 +161,42 @@ if uploaded_file:
     with col1:
         st.subheader("Method A")
 
-        if method == "Vanilla":
+        if methodA == "Vanilla":
             sal1 = compute_saliency(input_tensor)
-        elif method == "Guided Backprop":
+        elif methodA == "Guided Backprop":
             sal1 = guided_backprop(input_tensor)
         else:
-            sal1 = smoothgrad(input_tensor, samples, noise)
+            sal1 = smoothgrad(input_tensor, paramsA.get("samples", 20), paramsA.get("noise", 0.1))
 
         sal1 = normalize_map(sal1)
-        overlay1 = overlay_heatmap(image, sal1, alpha)
-        st.image(overlay1)
+        st.image(sal1, caption="Raw Saliency", clamp=True)
+        st.image(overlay_heatmap(image, sal1, alpha), caption="Overlay")
+        st.write(f"Mean: {sal1.mean():.4f}, Max: {sal1.max():.4f}")
 
     # RIGHT SIDE (comparison)
     with col2:
         st.subheader("Method B (SmoothGrad)")
 
-        sal2 = smoothgrad(input_tensor, 20, 0.1)
+        if methodB == "Vanilla":
+            sal2 = compute_saliency(input_tensor)
+        elif methodB == "Guided Backprop":
+            sal2 = guided_backprop(input_tensor)
+        else:
+            sal2 = smoothgrad(
+                input_tensor,
+                paramsB.get("samples", 20),
+                paramsB.get("noise", 0.1)
+            )
+
         sal2 = normalize_map(sal2)
-        overlay2 = overlay_heatmap(image, sal2, alpha)
-        st.image(overlay2)
+
+        st.image(sal2, caption="Raw Saliency", clamp=True)
+        st.image(overlay_heatmap(image, sal2, alpha), caption="Overlay")
+        st.write(f"Mean: {sal2.mean():.4f}, Max: {sal2.max():.4f}")
+        
+st.markdown("### Explanation")
+st.info("""
+Vanilla gradients can be noisy because they are highly sensitive to small input changes.
+Guided Backprop filters negative gradients to produce sharper visualisations.
+SmoothGrad reduces noise by averaging gradients over multiple noisy inputs.
+""")
