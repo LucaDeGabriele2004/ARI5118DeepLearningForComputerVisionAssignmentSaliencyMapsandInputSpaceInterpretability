@@ -116,7 +116,7 @@ Note: Port Number may be different
 
 ### 4. How to Use the Simulator
 
-Step 1: Upload an image
+**Step 1:** Upload an image
 Recommended examples:
 
 - Animals
@@ -124,9 +124,12 @@ Recommended examples:
 - Faces
 - Objects with clear foreground/background separation
 
-Step 2: Select the Attribution Method (Vanilla Saliency, Guided Backpropagation and SmoothGrad)
-Step 3: Adjust the parameters
-Step 4: Look at the differences in the highlighted areas
+**Step 2:** Select the Attribution Method (Vanilla Saliency, Guided Backpropagation and SmoothGrad)
+
+**Step 3:** Adjust the parameters
+
+**Step 4:** Look at the differences in the highlighted areas
+
 Compare:
 
 - Localisation sharpness
