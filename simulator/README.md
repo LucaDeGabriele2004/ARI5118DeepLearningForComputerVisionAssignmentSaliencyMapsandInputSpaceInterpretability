@@ -31,14 +31,14 @@ Select between:
 
 #### Overlay Transparency
 Controls visibility of saliency heatmap overlay.
-**Range:** 0.0 – 1.0
+**Range of values that is offered by the simulator:** 0.0 – 1.0
 
 ---
 
 #### SmoothGrad Noise Level (σ)
 Controls Gaussian noise added to input.
 
-**Typical values:** 0.05 – 0.20
+**Typical values for SmoothGrad Noise Level:** 0.05 – 0.20
 
 Higher values:
 - More smoothing
@@ -61,7 +61,7 @@ Higher values:
 
 ---
 
-### Side-by-Side Comparison
+### Side-by-Side Comparison Mode
 Compare:
 
 - Selected attribution method
@@ -79,7 +79,7 @@ Designed to run on standard CPU hardware.
 
 ### 1. Clone Repository
 
-The GitHub Repository is cloned by using the following command
+The GitHub Repository is installed onto your computer by using the following command
 ```bash
 git clone https://github.com/LucaDeGabriele2004/ARI5118DeepLearningForComputerVisionAssignmentSaliencyMapsandInputSpaceInterpretability
 ```
@@ -111,10 +111,11 @@ To start the Streamlit simulator, the following bash command was used:
 ```bash
 python -m streamlit run simulatorApp.py
 ```
-The simulator will open automatically on your browser. If it does not open automatically, go to the URL: http://localhost:8501
+Running this command should automatically start the simulator. The URL http://localhost:8501 can also be used to access the simulator
+
 Note: Port Number may be different
 
-### 4. How to Use the Simulator
+### 4. Using the Simulator
 
 **Step 1:** Upload an image
 Recommended examples:
