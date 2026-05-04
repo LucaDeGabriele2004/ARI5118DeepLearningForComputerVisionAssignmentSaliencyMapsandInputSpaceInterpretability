@@ -1,8 +1,8 @@
 # ARI5118 - Deep Learning For Computer Vision Assignment 
 ## Saliency Maps and Input Space Interpretability
-This GitHub repository contains the complete assignment submission for the **ARI5118 – Deep Learning for Computer Vision** assignment.
+This GitHub repository contains all of the neccessary components that are required for the **ARI5118 – Deep Learning for Computer Vision** assignment.
 
-This project deals with **saliency maps and input-space interpretability**, focusing on understanding how convolutional neural networks identify important areas of an image when making predictions.
+This project will focus on the topic of **saliency maps and input-space interpretability**. This topic will focus on how convolutional neural networks find important areas of an image when making predictions.
 
 The project will cover both the theoretical and practical aspects of gradient-based attribution methods, including their mathematical formulas, applications, and limitations.
 
@@ -15,12 +15,11 @@ This learning pack will cover the following topics:
 - Guided Backpropagation
 - SmoothGrad
 - Saliency Failure Modes
-- Reliability and Interpretability Challenges
 
 ---
 
 ## Objectives
-The aim of this project is to:
+The main goals of this project is to:
 
 - Explain how saliency-based interpretability methods work
 - Connect biological saliency to deep learning attribution
@@ -69,7 +68,7 @@ The following features are included in this simulator:
 - Guided Backpropagation
 - SmoothGrad
 
-Instructions on how to install and run the simulator are included in the README file that is located in the simulator directory.
+A README file is included in the simulator directory which includes instructions to install and use the interactive simulator.
 
 5. **Annotated Code Walkthrough**
 
@@ -97,4 +96,4 @@ This project shows an understanding of:
 - Attribution visualisation
 - Saliency reliability
 - Deep learning debugging
-Explainable AI evaluation
+- Explainable AI evaluation
