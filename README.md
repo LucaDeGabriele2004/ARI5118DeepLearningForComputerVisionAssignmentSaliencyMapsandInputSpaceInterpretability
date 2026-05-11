@@ -43,7 +43,7 @@ This contains written notes which cover:
 
 2. **Adversarial Quiz**
 
-This is a multiple choice assessment which contains 10 questions that are designed to test whether the user has understood the topic. This quiz also contains feedback whenever the user answers the question with clear explanations as to why the correct answer is right and why each incorrect option is a plausible pitfall. A PDF file containing all of the questions, answers and explanations is included. This quiz can be accessed through the following link:
+This is a multiple choice assessment which contains 10 questions that are designed to test whether the user has understood the topic. This quiz also contains feedback whenever the user answers the question with clear explanations as to why the correct answer is right and why each incorrect option is a plausible pitfall. A PDF file containing all of the questions, answers and explanations is included. This quiz can be accessed through the following link: https://docs.google.com/forms/d/e/1FAIpQLSedVdWmnjPUANZPEJb3eU1SMedll8fCQ4cjsNIJ3hzbpXjkTw/viewform?usp=publish-editor
 
 3. **Presentation Slides**
 
