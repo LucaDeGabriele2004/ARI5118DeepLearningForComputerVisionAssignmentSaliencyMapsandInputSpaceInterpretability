@@ -118,11 +118,11 @@ Note: Port Number may be different
 ### 4. Using the Simulator
 
 **Step 1:** Upload an image
-Recommended examples:
+Some recommended examples can be found in the sample_images folder:
 
 - Animals
 - Vehicles
-- Faces
+- Simple Objects (for example a banana)
 - Objects with clear foreground/background separation
 
 **Step 2:** Select the Attribution Method (Vanilla Saliency, Guided Backpropagation and SmoothGrad)
