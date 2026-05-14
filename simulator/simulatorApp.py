@@ -159,7 +159,7 @@ if uploaded_file:
 
     # LEFT SIDE
     with col1:
-        st.subheader("Method A")
+        st.subheader(f"Method A ({methodA})")
 
         if methodA == "Vanilla":
             sal1 = compute_saliency(input_tensor)
@@ -175,7 +175,7 @@ if uploaded_file:
 
     # RIGHT SIDE (comparison)
     with col2:
-        st.subheader("Method B (SmoothGrad)")
+        st.subheader(f"Method B ({methodB})")
 
         if methodB == "Vanilla":
             sal2 = compute_saliency(input_tensor)
